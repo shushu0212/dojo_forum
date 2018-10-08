@@ -1,3 +1,5 @@
 class Category < ApplicationRecord
-  has_many :topics, dependent: :restrict_with_error
+  # set many topics to many categories
+  has_many :topic_categoryships
+  has_many :topics, :through => :topic_categoryships
 end
