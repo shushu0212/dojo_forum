@@ -7,5 +7,7 @@ class User < ApplicationRecord
   has_many :topics
   has_many :comments, dependent: :destroy
 
-
+  def admin?
+    self.role == "admin"
+  end
 end
