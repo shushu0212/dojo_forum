@@ -1,1 +1,31 @@
 後台首頁
+<div class="container">
+  <h1>Category List</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Category Name</th>
+            <th>#</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @categories.each do |category| %>
+          <tr>
+            <th scope="row"><%= category.id %></th>
+            <td><%= category.name %></td>
+            <td>
+              <!-- 因為我們只有index.html.erb，所以這裡的edit我們加上params[:id]到url裡 -->
+              <!-- index 就能判斷是edit or new，而印出對應的form表單 -->
+              <%= link_to 'Edit', admin_categories_path(id: category.id) %>
+              <%= link_to 'Delete', admin_category_path(category), method: :delete, data: { confirm: "Are you sure?"} %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
