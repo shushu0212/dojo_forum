@@ -23,8 +23,22 @@ category_list.each do |category|
 end
 puts "Category created!"
 
+# Role
+
+Role.destroy_all
+
+role_list =[
+  { name: "Admin" },
+  { name: "Normal" }
+]
+
+role_list.each do |role|
+  Role.create( name: role[:name] )
+end
+puts "Role created!"
+
 
 # Default admin
 
-User.create(email: "admin@gmail.com", password: "12345678", role: "admin")
+User.create(email: "admin@example.com", password: "12345678", role_id: "1")
 puts "Default admin created!"

@@ -1,6 +1,6 @@
 namespace :dev do
   task fake_user: :environment do
-    admin = User.where(role:"admin")
+    admin = User.where(role_id:"1")
     User.destroy_all unless admin
     20.times do |i|
       name = FFaker::Name.first_name
