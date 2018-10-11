@@ -6,8 +6,9 @@ class User < ApplicationRecord
   
   has_many :topics
   has_many :comments, dependent: :destroy
+  belongs_to :role
 
   def admin?
-    self.role == "admin"
+    self.role.name == "Admin"
   end
 end
