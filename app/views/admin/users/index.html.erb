@@ -20,7 +20,10 @@
             <td><%= user.name %></td>
             <td><%= user.email %></td>
             <td>
-              <%= user.role.name %>
+              <%= form_for [:admin, user] do |f| %>
+              <%= f.collection_select :role_id, Role.all, :id, :name, {prompt: true}, {class: "form-control"} %>
+              <%= f.submit "Update", class: "btn btn-primary" %>
+              <% end %>
             </td>
           </tr>
           <% end %>
