@@ -1,6 +1,11 @@
 後台首頁
 <div class="container">
   <h1>Category List</h1>
+  <div>
+    <%= link_to 'Categories', admin_categories_path %> |
+    <%= link_to 'Users', admin_users_path %>
+  </div>
+  <br>
   <div class="form-inline" >
     <%= form_for [:admin, @category] do |f| %>
       <div class="form-group">
