@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20181011142937) do
   create_table "topics", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.integer "category_id"
     t.integer "comments_count", default: 0
     t.integer "viewed_count", default: 0
     t.datetime "created_at", null: false
