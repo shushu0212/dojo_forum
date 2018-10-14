@@ -1,10 +1,28 @@
-首頁
-<% if current_user %>
-  <% if current_user.admin? %>
-  <li><%= link_to '(Admin)', admin_categories_path %></li>
-  <% end %>
-<li><%= current_user.email %></li>
-<li><%= link_to('登出', destroy_user_session_path, method: :delete) %></li>
-<% else %>
-<li><%= link_to('登入', new_user_session_path) %></li>
-<% end %>
+<div class="container">
+  <h1>DojoForum</h1>
+  <hr>  
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Replies count</th>
+            <th>Title</th>
+            <th>Last Replied at</th>
+            <th>Viewed count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @topics.each do |topic| %>
+          <tr>
+            <td><%= topic.comments_count %></td>
+            <td><%= link_to topic.title %></td>
+            <td><%= topic.created_at.strftime("%Y-%m-%d") %></td>
+            <td><%= topic.viewed_count %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
