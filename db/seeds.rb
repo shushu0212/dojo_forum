@@ -37,6 +37,21 @@ role_list.each do |role|
 end
 puts "Role created!"
 
+# Audience
+
+Audience.destroy_all
+
+audience_list =[
+  { name: "All" },
+  { name: "Friend" },
+  { name: "Myself" }
+]
+
+audience_list.each do |audience|
+  Audience.create( name: audience[:name] )
+end
+puts "Audience created!"
+
 
 # Default admin
 
