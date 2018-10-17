@@ -33,6 +33,6 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    params.require(:topic).permit(:title, :content, :viewed_count, category_ids: [])
+    params.require(:topic).permit(:title, :content, :viewed_count, :audience_id, category_ids: [])
   end
 end
