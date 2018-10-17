@@ -17,12 +17,23 @@ class TopicsController < ApplicationController
 
   def create
     @topic = current_user.topics.build(topic_params)
-    if @topic.save
-      flash[:notice] = "topic was successfully created"
-      redirect_to root_path
+    if params[:commit] == "Save Draft"
+      @topic.publish = false
+      if @topic.save
+        flash[:notice] = "draft was successfully saved"
+        redirect_to root_path
+      else
+        flash.now[:alert] = "draft was failed to save"
+        render :new
+      end
     else
-      flash.now[:alert] = "topic was failed to create"
-      render :new
+      if @topic.save
+        flash[:notice] = "topic was successfully created"
+        redirect_to root_path
+      else
+        flash.now[:alert] = "topic was failed to create"
+        render :new
+      end
     end
   end
 
