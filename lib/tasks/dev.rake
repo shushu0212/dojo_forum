@@ -39,6 +39,8 @@ namespace :dev do
           content: FFaker::Lorem.sentence,
           user: User.all.sample
         )
+      comment_last = Comment.last
+      topic.update(last_commnet_created_at: comment_last.created_at)
       end
     end
     puts "now you have #{Comment.count} comment data"
