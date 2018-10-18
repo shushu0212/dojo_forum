@@ -3,7 +3,7 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!, except: :index
 
   def index
-    @topics = Topic.all
+    @topics = Topic.page(params[:page]).per(20)
   end
 
   def show
