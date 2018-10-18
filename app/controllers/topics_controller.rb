@@ -3,7 +3,15 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!, except: :index
 
   def index
-    @topics = Topic.page(params[:page]).per(20)
+    if params[:order_by] == 'lr'
+      @topics = Topic.page(params[:page]).order(last_commnet_created_at: :desc).per(20)
+    elsif params[:order_by] == 'vc'
+      @topics = Topic.page(params[:page]).order(viewed_count: :desc).per(20)
+    elsif params[:order_by] == 'rc'
+      @topics = Topic.page(params[:page]).order(comments_count: :desc).per(20)
+    else
+      @topics = Topic.page(params[:page]).per(20)
+    end
   end
 
   def show
