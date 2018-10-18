@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: [:show]
+  before_action :set_topic, only: [:show, :edit, :update]
   before_action :authenticate_user!, except: :index
 
   def index
@@ -33,6 +33,35 @@ class TopicsController < ApplicationController
       else
         flash.now[:alert] = "topic was failed to create"
         render :new
+      end
+    end
+  end
+
+  def edit
+    unless @user == current_user
+      flash[:alert] = "非本人文章，無法編輯!"
+      redirect_to root_path
+    end
+  end
+
+  def update
+    if params[:commit] == "Save Draft"
+      @topic.publish = false
+      if @topic.update(topic_params)
+        flash[:notice] = "draft was successfully saved"
+        redirect_to root_path
+      else
+        flash.now[:alert] = "draft was failed to save"
+        render :new
+      end
+    else
+      @topic.publish = true
+      if @topic.update(topic_params)
+        flash[:notice] = "topic was successfully updated"
+        redirect_to root_path
+      else
+        flash.now[:alert] = "topic was failed to update"
+        render :edit
       end
     end
   end
