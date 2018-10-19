@@ -17,6 +17,7 @@ class TopicsController < ApplicationController
   def show
     @topic.viewed_count += 1
     @topic.save!
+    @comment = Comment.new
   end
 
   def new
