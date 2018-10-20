@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   def drafts
+    @posts = @user.topics.where(publish:false)
   end
 
   def friends
