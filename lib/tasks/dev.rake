@@ -34,7 +34,7 @@ namespace :dev do
 
   task fake_comment: :environment do
     Topic.all.each do |topic|
-      3.times do |i|
+      21.times do |i|
         topic.comments.create!(
           content: FFaker::Lorem.sentence,
           user: User.all.sample
