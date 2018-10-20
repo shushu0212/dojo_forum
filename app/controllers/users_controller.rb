@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   end
 
   def comments
+    @comments = @user.comments
   end
 
   def collects
