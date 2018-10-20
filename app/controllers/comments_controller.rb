@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
 
-    if current_user.admin?
+    if current_user.admin? || @comment.user.email == current_user.email
       @comment.destroy
       redirect_to topic_path(@topic)
     end
