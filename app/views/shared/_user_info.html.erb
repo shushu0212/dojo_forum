@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="row">
+        <div class="col-md-3 col-sm-4">
+          <div class="text-center">
+          <%= image_tag user.avatar, height: 30, width: 30, class:"img-responsive img-rounded" unless user.avatar.blank? %>
+          <h5><%= user.name %></h5>
+          </div>
+        </div>
+
+        <div class="col-md-9 col-sm-8">
+          <div><%= simple_format @user.intro %><div>
+          <% if user.email == current_user.email %>
+            <%= link_to 'Edit', edit_user_path(user), class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

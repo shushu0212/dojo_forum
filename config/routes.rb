@@ -14,7 +14,14 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update] do
+    member do
+      get :comments
+      get :collects
+      get :drafts
+      get :friends
+    end
+  end
 
   resources :categories, only: :show
   
