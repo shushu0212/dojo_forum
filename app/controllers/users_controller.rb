@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    @posts = @user.topics.where(publish:true)
   end
 
   def edit
