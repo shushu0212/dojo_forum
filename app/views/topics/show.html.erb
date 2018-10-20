@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <h1><%= @topic.user.name %></h1>
+      <h1><%= link_to @topic.user.name, user_path(@topic.user) %></h1>
     </div>
     <div class="col-md-8">
       <h1><%= @topic.title %></h1>
@@ -30,7 +30,7 @@
 <div class="container">
   <% @topic_comments.each do |comment| %>
   <div>
-    <h4><%= comment.user.email.split('@').first %></h4>
+    <h4><%= link_to comment.user.email.split('@').first, user_path(comment.user) %></h4>
     <p><%= simple_format comment.content %></p>
     <p class="text-muted">
       <em><%= time_ago_in_words(comment.created_at) %> ago</em>
