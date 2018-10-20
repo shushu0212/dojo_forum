@@ -5,8 +5,18 @@
     </div>
     <div class="col-md-8">
       <h1><%= @topic.title %></h1>
-      <p>[<%= @topic.categories.name %>]</p>
-      <%= @topic.content %></h3>
+      <p>
+        <% @topic.categories.each do |category| %>
+          <%= category.name %>
+        <% end %>
+      </p>
+      <p><%= @topic.content %></p>
+      <p>Replise count : <%= @topic.comments_count %></p>
+      <p>Viewed count : <%= @topic.viewed_count %></p>
+      <% if current_user.admin? || @topic.user.email == current_user.email %>
+        <%= link_to 'Edit', edit_topic_path if @topic.user.email == current_user.email %>
+        <%= link_to 'Delete', topic_path, method: :delete, data: { confirm: "Are you sure?"} %>
+      <% end %>
     </div>
 
     <div class="clearfix"></div>

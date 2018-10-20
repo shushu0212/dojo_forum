@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: [:show, :edit, :update]
+  before_action :set_topic, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: :index
 
   def index
@@ -48,7 +48,7 @@ class TopicsController < ApplicationController
   end
 
   def edit
-    unless @user == current_user
+    unless @topic.user == current_user
       flash[:alert] = "非本人文章，無法編輯!"
       redirect_to root_path
     end
@@ -68,12 +68,21 @@ class TopicsController < ApplicationController
       @topic.publish = true
       if @topic.update(topic_params)
         flash[:notice] = "topic was successfully updated"
-        redirect_to root_path
+        redirect_to topic_path
       else
         flash.now[:alert] = "topic was failed to update"
         render :edit
       end
     end
+  end
+
+  def destroy
+    if @topic.destroy
+      flash[:alert] = "category was successfully deleted"
+    else
+      flash[:alert] = @topic.errors.full_messages.to_sentence
+    end
+    redirect_to root_path
   end
 
   private
