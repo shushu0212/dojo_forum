@@ -17,6 +17,7 @@ class TopicsController < ApplicationController
   def show
     @topic.viewed_count += 1
     @topic.save!
+    @topic_comments = @topic.comments.page(params[:page]).per(20)
     @comment = Comment.new
   end
 

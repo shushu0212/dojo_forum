@@ -18,7 +18,7 @@
 <hr>
 
 <div class="container">
-  <% @topic.comments.each do |comment| %>
+  <% @topic_comments.each do |comment| %>
   <div>
     <h4><%= comment.user.email.split('@').first %></h4>
     <p><%= simple_format comment.content %></p>
@@ -31,6 +31,9 @@
   </div>
   <hr>
   <% end %>
+  <div>
+    <%= paginate @topic_comments, theme: 'twitter-bootstrap-4' %>
+  </div>
 
   <!-- 新增評論的表單輸入框 -->
   <%= form_for [@topic, @comment] do |f| %>
