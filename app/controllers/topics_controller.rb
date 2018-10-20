@@ -78,7 +78,7 @@ class TopicsController < ApplicationController
 
   def destroy
     if @topic.destroy
-      flash[:alert] = "category was successfully deleted"
+      flash[:alert] = "topic was successfully deleted"
     else
       flash[:alert] = @topic.errors.full_messages.to_sentence
     end
