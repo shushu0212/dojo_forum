@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
     @comment = @topic.comments.build(comment_params)
     @comment.user = current_user
     @comment.save!
+    @topic.update(last_commnet_created_at: @comment.created_at)
     redirect_to topic_path(@topic)
   end
 
