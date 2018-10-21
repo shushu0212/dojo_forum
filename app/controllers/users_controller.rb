@@ -28,6 +28,7 @@ class UsersController < ApplicationController
   end
 
   def collects
+    @collects = @user.collects
   end
 
   def drafts
