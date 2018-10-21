@@ -6,6 +6,7 @@
           <div class="text-center">
           <%= image_tag user.avatar, height: 30, width: 30, class:"img-responsive img-rounded" unless user.avatar.blank? %>
           <h5><%= user.name %></h5>
+          <%= render partial: "shared/friend", locals:{user:user} %>
           </div>
         </div>
 

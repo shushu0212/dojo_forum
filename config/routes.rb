@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   end
 
   resources :categories, only: :show
+
+  resources :friendships, only: [:create, :edit, :update]
+
   
   root "topics#index"
 
