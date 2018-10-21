@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  before_action :set_topic, except: :index
   before_action :authenticate_user!, except: :index
 
   def index
@@ -83,6 +83,17 @@ class TopicsController < ApplicationController
       flash[:alert] = @topic.errors.full_messages.to_sentence
     end
     redirect_to root_path
+  end
+
+  def collect
+    @topic.collects.create!(user: current_user)
+    redirect_back(fallback_location: root_path)  # 導回上一頁
+  end
+
+  def uncollect
+    collects = Collect.where(topic: @topic, user: current_user)
+    collects.destroy_all
+    redirect_back(fallback_location: root_path)
   end
 
   private

@@ -1,0 +1,6 @@
+<!-- 新增收藏按鈕 -->
+<% if topic.is_collected?(current_user) %>
+  <%= link_to 'Uncollect', uncollect_topic_path(topic), method: :post, class: "btn btn-info" %>
+<% else %>
+  <%= link_to 'Collect', collect_topic_path(topic), method: :post, class: "btn btn-primary" %>
+<% end %>

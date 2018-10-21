@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     end
 
     member do
-      post :favorite
-      post :unfavorite
+      post :collect
+      post :uncollect
     end
   end
   

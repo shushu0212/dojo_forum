@@ -7,4 +7,12 @@ class Topic < ApplicationRecord
   has_many :categories, :through => :topic_categoryships
   
   has_many :comments, dependent: :destroy
+
+  has_many :collects, dependent: :destroy
+  has_many :collected_users, through: :collects, source: :user
+
+  def is_collected?(user)
+    self.collected_users.include?(user) 
+  end
+
 end

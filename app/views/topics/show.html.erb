@@ -1,4 +1,6 @@
+<br>
 <div class="container">
+  <%= render partial: "shared/collect", locals: {topic: @topic} %>
   <div class="row">
     <div class="col-md-4">
       <h1><%= link_to @topic.user.name, user_path(@topic.user) %></h1>
