@@ -32,13 +32,14 @@
 
 <div class="container">
   <% @topic_comments.each do |comment| %>
-  <div>
+  <div id=comment-<%= comment.id.to_s %>>
     <h4><%= link_to comment.user.name, user_path(comment.user) %></h4>
     <%= render partial: "shared/friend", locals:{user:comment.user} %>
     <p><%= simple_format comment.content %></p>
     <p class="text-muted">
       <em><%= time_ago_in_words(comment.created_at) %> ago</em>
       <% if current_user.admin? || comment.user.email == current_user.email %>
+        <a href="" onClick="editComment()">Edit</a>
         <%= link_to "Delete", topic_comment_path(@topic, comment), method: :delete, data: { confirm: "Are you sure?"}  %>
       <% end %>
     </p>
@@ -65,6 +66,38 @@
   </div>
 
 </div>
+<script>
+  function editComment() {
+    console.log(event.target)
+    event.preventDefault()
+    var et = event.target
+    var commentId = et.parentElement.parentElement.id.match(/^comment-(.*)$/)[1]
+    et.textContent = "Cancel"
+    var contentDOM = et.parentElement.previousElementSibling.previousElementSibling
+
+    var oriContent = $(contentDOM)[0].textContent
+    $($(contentDOM)[0]).replaceWith("<form accept-charset='UTF-8' action=" + window.location.pathname + '/comments/' + commentId + " method='post'><textarea name='comment[content]' class='form-control' style='min-width: 100%'>" + oriContent + "</textarea><input name='commit' type='submit' value='Update'><input type='hidden' name='authenticity_token' value=" + $('#new_comment input')[1].getAttribute('value') + "></form>")
+
+    et.setAttribute('ori-content', oriContent)
+    et.setAttribute('onClick', 'cancelEdit()')
+
+    et.nextElementSibling.style.display = 'none'
+  }
+
+  function cancelEdit() {
+    event.preventDefault()
+    var et = event.target
+    et.textContent = "Edit"
+    et.setAttribute('onClick', 'editComment()')
+
+    var contentDOM = et.parentElement.previousElementSibling.previousElementSibling
+    console.log(et.getAttribute('ori-content'))
+    $($(contentDOM)[0]).replaceWith("<p>" + et.getAttribute('ori-content') + "</p>")
+    et.removeAttribute('ori-content')
+
+    et.nextElementSibling.style.display = 'inline'
+  }
+</script>
 
 
 

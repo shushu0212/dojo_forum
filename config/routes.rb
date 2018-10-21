@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       post :uncollect
     end
   end
+
+  post '/topics/:topic_id/comments/:id', to: 'comments#update_comment', as: 'update_comment'
   
   resources :users, only: [:index, :show, :edit, :update] do
     member do

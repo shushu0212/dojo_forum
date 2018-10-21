@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_topic, only: [:create, :destroy, :edit, :update]
-  before_action :set_comment, only: [:destroy, :edit, :update]
+  before_action :set_topic, only: [:create, :destroy, :edit, :update, :update_comment]
+  before_action :set_comment, only: [:destroy, :edit, :update, :update_comment]
   
   def create
     @comment = @topic.comments.build(comment_params)
@@ -25,6 +25,17 @@ class CommentsController < ApplicationController
   end
 
   def update
+    if @comment.update(comment_params)
+      @topic.update(last_commnet_created_at: @comment.created_at)
+      flash[:notice] = "comment was successfully updated"
+      redirect_to topic_path(@topic)
+    else
+      flash[:alert] = @comment.errors.full_messages.to_sentence
+      render :edit
+    end
+  end
+
+  def update_comment
     if @comment.update(comment_params)
       @topic.update(last_commnet_created_at: @comment.created_at)
       flash[:notice] = "comment was successfully updated"
