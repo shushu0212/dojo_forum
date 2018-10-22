@@ -1,6 +1,17 @@
 <!-- 新增收藏按鈕 -->
-<% if topic.is_collected?(current_user) %>
-  <%= link_to 'Uncollect', uncollect_topic_path(topic), method: :post, class: "btn btn-info" %>
-<% else %>
-  <%= link_to 'Collect', collect_topic_path(topic), method: :post, class: "btn btn-primary" %>
+<% link_attr = topic.is_collected?(current_user) ?
+              {
+                path: uncollect_topic_path(topic),
+                button_class: "btn btn-info",
+                desc: "Uncollect"
+              } :
+              {
+                path: collect_topic_path(topic),
+                button_class: "btn btn-primary",
+                desc: "Collect"
+              } %>
+<%= link_to link_attr[:path], remote: true, method: :post, id: "topic-" + topic.id.to_s do %>
+  <button type="button" class="<%= link_attr[:button_class] %>">
+    <span><%= link_attr[:desc] %></span>
+  </button>
 <% end %>

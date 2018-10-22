@@ -1,0 +1,5 @@
+var el = document.getElementById("<%= "topic-" + @topic.id.to_s %>");
+el.querySelector('button span').innerHTML = "Collect";
+el.querySelector('button').classList.value = "btn btn-primary";
+el.href = "<%= collect_topic_path(@topic) %>"
+el.querySelector('button').blur()

@@ -87,13 +87,11 @@ class TopicsController < ApplicationController
 
   def collect
     @topic.collects.create!(user: current_user)
-    redirect_back(fallback_location: root_path)  # 導回上一頁
   end
 
   def uncollect
     collects = Collect.where(topic: @topic, user: current_user)
     collects.destroy_all
-    redirect_back(fallback_location: root_path)
   end
 
   private
