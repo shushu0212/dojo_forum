@@ -26,3 +26,26 @@
     </div>
   </div>
 </div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <h5>waiting for response</h5>
+        <% @waiting_friendings.each do |waiting_friending| %>
+          <%= image_tag waiting_friending.avatar, height: 30, width: 30, class:"img-responsive img-rounded" unless waiting_friending.avatar.blank? %>
+          <p><%= waiting_friending.name %></p>
+        <% end %>
+        <hr>
+        <h5>Friend</h5>
+        <% @friends.each do |friend| %>
+          <%= image_tag friend.avatar, height: 30, width: 30, class:"img-responsive img-rounded" unless friend.avatar.blank? %>
+          <p><%= friend.name %></p>
+        <% end %>
+
+        
+      
+    </div>
+  </div>
+</div>
+

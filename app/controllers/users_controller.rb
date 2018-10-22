@@ -36,6 +36,8 @@ class UsersController < ApplicationController
   end
 
   def friends
+    @waiting_friendings = @user.waiting_friendings
+    @friends = current_user.all_friends
   end
 
   private
