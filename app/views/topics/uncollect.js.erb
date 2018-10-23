@@ -3,3 +3,7 @@ el.querySelector('button span').innerHTML = "Collect";
 el.querySelector('button').classList.value = "btn btn-primary";
 el.href = "<%= collect_topic_path(@topic) %>"
 el.querySelector('button').blur()
+if (/users\/\d+\/collects$/.test(window.location.pathname)) {
+  var trToRemove = el.parentNode.parentNode
+  trToRemove.parentNode.removeChild(trToRemove)
+}
