@@ -37,6 +37,14 @@
           <p><%= waiting_friending.name %></p>
         <% end %>
         <hr>
+        <h5>waiting for me response</h5>
+        <% @waiting_frienders.each do |waiting_friender| %>
+          <%= image_tag waiting_friender.avatar, height: 30, width: 30, class:"img-responsive img-rounded" unless waiting_friender.avatar.blank? %>
+          <p><%= waiting_friender.name %></p>
+          <%= link_to "Accept", friendship_path(5), method: :patch, class: "btn btn-primary" %>
+          <%= link_to "Ignore", class: "btn btn-primary" %>
+        <% end %>
+        <hr>
         <h5>Friend</h5>
         <% @friends.each do |friend| %>
           <%= image_tag friend.avatar, height: 30, width: 30, class:"img-responsive img-rounded" unless friend.avatar.blank? %>
