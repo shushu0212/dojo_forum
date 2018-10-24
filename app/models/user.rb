@@ -32,11 +32,11 @@ class User < ApplicationRecord
   end
 
   def sent_friend_invitation?(user)
-    self.friendings.include?(user)
+    self.waiting_friendings.include?(user)
   end
 
   def friended?(user)
-    user.friendings.include?(self)
+    user.friendings.include?(self) || user.frienders.include?(self)
   end
 
   def all_friends 
