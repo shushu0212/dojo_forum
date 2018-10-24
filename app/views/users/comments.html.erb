@@ -39,6 +39,7 @@
               <p></p><%= comment.content %><p></td>
             <td>
               <% if comment.user.email == current_user.email %>
+                <%= link_to 'Edit', topic_path(comment.topic) %>
                 <%= link_to 'Delete', topic_comment_path(comment.topic, comment), method: :delete, data: { confirm: "Are you sure?"} %>
               <% end %>
             </td>
