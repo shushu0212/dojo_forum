@@ -24,7 +24,7 @@ class User < ApplicationRecord
   has_many :frienders, through: :inverse_friendships, source: :user
 
   # 設定inverse_friend waiting for me response關係(被加入朋友)
-  has_many :inverse_waiting_friendships, -> {where accept: false}, class_name: "Friendship", foreign_key: "friending_id"
+  has_many :inverse_waiting_friendships, -> {where accept: false, ignore: false}, class_name: "Friendship", foreign_key: "friending_id"
   has_many :waiting_frienders, through: :inverse_waiting_friendships, source: :user
 
   def admin?

@@ -1,5 +1,5 @@
 class FriendshipsController < ApplicationController
-  before_action :set_friendship, only: [:edit, :update]
+  before_action :set_friendship, only: [:edit, :update, :accept, :ignore]
   
   def create
     @friendship = Friendship.new(user: current_user, friending_id: params[:friending_id])
@@ -13,24 +13,22 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  def update
-    byebug
-    # if params[:commit] == "Accept"
-      @friendship.accept = true
-      if @friendship.update(friendship_params)
-        flash[:notice] = "Success as a friend"
-      else
-        flash.now[:alert] = @friendship.errors.full_messages.to_sentence 
-      end
-      redirect_to friends_user_path
-    # else
-    #   @friendship.ignore = true
-    #   if @friendship.update(friendship_params)
-    #     flash[:notice] = "Friend invitation has been ignored"
-    #   else
-    #     flash.now[:alert] = @friendship.errors.full_messages.to_sentence 
-    #   end
-    # end
+  def accept
+    if @friendship.update(accept_friendship_params)
+      flash[:notice] = "Success as a friend"
+    else
+      flash.now[:alert] = @friendship.errors.full_messages.to_sentence
+    end
+    redirect_to friends_user_path(current_user)
+  end
+
+  def ignore
+    if @friendship.update(ignore_friendship_params)
+      flash[:notice] = "Friend invitation has been ignored"
+    else
+      flash.now[:alert] = @friendship.errors.full_messages.to_sentence
+    end
+    redirect_to friends_user_path(current_user)
   end
 
   private
@@ -39,8 +37,14 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.find(params[:id])
   end
 
-  def friendship_params
-    params.require(:friendship).permit(:accept, :ignore)
+  def accept_friendship_params
+    params[:friendship] = {:accept => true}
+    params.require(:friendship).permit(:accept)
+  end
+
+  def ignore_friendship_params
+    params[:friendship] = {:ignore => true}
+    params.require(:friendship).permit(:ignore)
   end
 
 end

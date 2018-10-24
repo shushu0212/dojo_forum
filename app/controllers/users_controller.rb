@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    byebug
     if @user.update(user_params)
       flash[:notice] = "profile was successfully updated"
       redirect_to user_path(@user)
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
   def friends
     @waiting_friendings = @user.waiting_friendings
     @waiting_frienders = @user.waiting_frienders
-    @friends = current_user.all_friends
+    @friends = @user.all_friends
   end
 
   private
