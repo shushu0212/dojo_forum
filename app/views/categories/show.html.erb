@@ -3,9 +3,9 @@
   <hr> 
   <div class="row">
     <nav class="nav nav-pills flex-column flex-sm-row">
-      <%= link_to 'All', root_path, class:"flex-sm-fill text-sm-center nav-link active"%>
+      <%= link_to 'All', root_path, class:"flex-sm-fill text-sm-center nav-link"%>
       <% @categories.each do |category| %>
-        <%= link_to category.name, category_path(category), class:"flex-sm-fill text-sm-center nav-link" %>
+        <%= link_to category.name, category_path(category), class: "flex-sm-fill text-sm-center nav-link" + ((category == @category)? " active" : "") %>
       <% end %>
     </nav>
   </div><br>
