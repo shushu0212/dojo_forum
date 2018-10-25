@@ -31,26 +31,32 @@
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-        <h5>waiting for response</h5>
-        <% @waiting_friendings.each do |waiting_friending| %>
-          <%= image_tag waiting_friending.avatar, height: 80, width: 80, class:"img-responsive img-rounded" %>
-          <p><%= link_to waiting_friending.name, user_path(waiting_friending) %></p>
-        <% end %>
-        <hr>
-        <h5>waiting for me response</h5>
-        <% @waiting_frienders.each do |waiting_friender| %>
+      <h5>waiting for response</h5>
+      <% @waiting_friendings.each do |waiting_friending| %>
+        <%= image_tag waiting_friending.avatar, height: 80, width: 80, class:"img-responsive img-rounded" %>
+        <p><%= link_to waiting_friending.name, user_path(waiting_friending) %></p>
+      <% end %>
+      <hr>
+      <h5>waiting for me response</h5>
+      <% @waiting_frienders.each do |waiting_friender| %>
+        <div id="waiting-id-<%= waiting_friender.id.to_s %>">
           <%= image_tag waiting_friender.avatar, height: 80, width: 80, class:"img-responsive img-rounded" %>
           <p><%= link_to waiting_friender.name, user_path(waiting_friender) %></p>
           <% accept_friendship = Friendship.where(user_id:waiting_friender, friending_id: current_user) %>
-          <%= link_to "Accept", accept_friendship_path(accept_friendship.ids), method: :post, class: "btn btn-primary" %>
-          <%= link_to "Ignore", ignore_friendship_path(accept_friendship.ids), method: :post, class: "btn btn-primary" %>
-        <% end %>
-        <hr>
-        <h5>Friend</h5>
+          <%= link_to "Accept", accept_friendship_path(accept_friendship.ids), remote: true, method: :post, class: "btn btn-primary" %>
+          <%= link_to "Ignore", ignore_friendship_path(accept_friendship.ids), remote: true, method: :post, class: "btn btn-primary" %>
+        </div>
+      <% end %>
+      <hr>
+      <h5>Friend</h5>
+      <div id="friends-list">
         <% @friends.each do |friend| %>
-          <%= image_tag friend.avatar, height: 80, width: 80, class:"img-responsive img-rounded" %>
-          <p><%= link_to friend.name, user_path(friend) %></p>
+          <div>
+            <%= image_tag friend.avatar, height: 80, width: 80, class:"img-responsive img-rounded" %>
+            <p><%= link_to friend.name, user_path(friend) %></p>
+          </div>
         <% end %>
+      </div>
     </div>
   </div>
 </div>

@@ -1,0 +1,6 @@
+<% friend = User.find_by_id(@friendship.user_id) %>
+document.getElementById('waiting-id-<%= @friendship.user_id.to_s %>').style.display = 'none'
+var div = document.createElement('div')
+var htmlString = '<%= image_tag friend.avatar, height: 80, width: 80, class:"img-responsive img-rounded" %>' + '<p>' + '<%= link_to friend.name, user_path(@friendship.user_id) %>' + '</p>'
+div.innerHTML = htmlString.trim()
+document.getElementById('friends-list').append(div)

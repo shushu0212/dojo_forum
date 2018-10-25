@@ -19,7 +19,6 @@ class FriendshipsController < ApplicationController
     else
       flash.now[:alert] = @friendship.errors.full_messages.to_sentence
     end
-    redirect_to friends_user_path(current_user)
   end
 
   def ignore
@@ -28,7 +27,6 @@ class FriendshipsController < ApplicationController
     else
       flash.now[:alert] = @friendship.errors.full_messages.to_sentence
     end
-    redirect_to friends_user_path(current_user)
   end
 
   private
