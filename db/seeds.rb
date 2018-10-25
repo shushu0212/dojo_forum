@@ -55,5 +55,5 @@ puts "Audience created!"
 
 # Default admin
 
-User.create(email: "admin@example.com", password: "12345678", role_id: "1")
+User.create(email: "admin@example.com", password: "12345678",name: "Admin", role_id: "1")
 puts "Default admin created!"
