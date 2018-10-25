@@ -17,6 +17,10 @@
         <div class="form-group">
           <%= f.text_area :content, class:"form-control" %>
         </div><br>
+        <div class="form-gruop">
+          <%= image_tag @topic.image, size: 2.0 if @topic.image?%>
+          <%= f.file_field :image %>
+        </div>
         <div class="form-group">
           <%= f.label "Who Can See" %>
           <%= f.collection_check_boxes :audience_id, Audience.all, :id, :name %>

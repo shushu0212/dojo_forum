@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, except: :index
+  before_action :set_topic, except: [:index, :new, :create]
   before_action :authenticate_user!, except: :index
 
   def index
@@ -101,6 +101,6 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    params.require(:topic).permit(:title, :content, :viewed_count, :audience_id, category_ids: [])
+    params.require(:topic).permit(:title, :content, :image, :viewed_count, :audience_id, category_ids: [])
   end
 end

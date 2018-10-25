@@ -1,4 +1,6 @@
 class Topic < ApplicationRecord
+  mount_uploader :image, PhotoUploader
+
   belongs_to :user, counter_cache: :topics_count
   belongs_to :audience
   

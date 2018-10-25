@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181021070413) do
+ActiveRecord::Schema.define(version: 20181025004631) do
 
   create_table "audiences", force: :cascade do |t|
     t.string "name"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20181021070413) do
     t.datetime "last_commnet_created_at"
     t.integer "audience_id", default: 1
     t.boolean "publish", default: true
+    t.string "image"
   end
 
   create_table "users", force: :cascade do |t|
