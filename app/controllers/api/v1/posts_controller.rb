@@ -22,7 +22,7 @@ class Api::V1::PostsController < ApiController
   end
 
   def create
-    @post = Topic.new(topic_params)
+    @post = current_user.topics.build(topic_params)
     if @post.save
       render json: {
         message: "Topic created successfully!",
@@ -38,7 +38,7 @@ class Api::V1::PostsController < ApiController
   private
   
   def topic_params
-    params.permit(:title, :content, :audience_id, category_ids: [])
+    params.permit(:title, :content, :image, :audience_id, category_ids: [])
   end
 
 end
