@@ -52,12 +52,28 @@ class Api::V1::PostsController < ApiController
     else
       render json: {
         message: "非本人文章!"
-    }
+      }
     end
   end
 
+  def destroy
+    if @post.user == current_user
+      if @post.destroy
+        render json: {
+          message: "Topic destroy successfully!"
+        }
+      else
+        render json: {
+          errors: @post.errors
+        }
+      end
+    else
+      render json: {
+        message: "非本人文章!"
+      }
+    end
+  end
 
-  
   private
   
   def set_topic
