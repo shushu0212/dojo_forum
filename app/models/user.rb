@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :validatable
   mount_uploader :avatar, AvatarUploader
+  before_create :generate_authentication_token
   
   has_many :topics
   has_many :comments, dependent: :destroy
@@ -43,6 +44,10 @@ class User < ApplicationRecord
   def all_friends 
     friends = self.friendings + self.frienders
     return friends.uniq
+  end
+
+  def generate_authentication_token
+    self.authentication_token = Devise.friendly_token
   end
 end
 
