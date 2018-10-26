@@ -1,0 +1,19 @@
+var formString = "<%= j render partial: "comments/edit", locals:{topic: @topic, comment: @comment} %>";
+
+var div = document.createElement('div');
+div.setAttribute("id", 'edit-<%= @comment.id %>' );
+div.innerHTML = formString.trim();
+
+var ori_comment = $("#comment-<%= @comment.id %> p")[1];
+ori_comment.parentNode.replaceChild(div, ori_comment);
+
+document.getElementById('cancel-<%= @comment.id %>').setAttribute("onClick", "restoreComment()")
+document.getElementById('links-<%= @comment.id %>').style.visibility = 'hidden'
+
+function restoreComment() {
+  var el_form = document.getElementById('edit-<%= @comment.id %>')
+  var ori = document.createElement('p');
+  ori.textContent = document.getElementById('cancel-<%= @comment.id %>').getAttribute('original')
+  el_form.parentNode.replaceChild(ori, el_form);
+  document.getElementById('links-<%= @comment.id %>').style.visibility = 'visible'
+}

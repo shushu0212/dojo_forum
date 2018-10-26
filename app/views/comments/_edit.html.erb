@@ -1,0 +1,9 @@
+<%= form_for @comment, url: update_comment_path(@topic.id, @comment.id) do |f| %>
+  <div class="form-group">
+    <%= f.text_area :content, class:"form-control" %>
+  </div>
+  <div class="form-gruop">
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+    <%= f.button "Cancel", type: :reset, class: "btn btn-default", original: @comment.content, id: 'cancel-' + @comment.id.to_s %>
+  </div>
+<% end %>
