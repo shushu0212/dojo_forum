@@ -1,4 +1,5 @@
 class Api::V1::PostsController < ApiController
+  before_action :authenticate_user!, except: :index
   def index
     @posts = Topic.all
     render json: {
@@ -19,4 +20,25 @@ class Api::V1::PostsController < ApiController
       }
     end
   end
+
+  def create
+    @post = Topic.new(topic_params)
+    if @post.save
+      render json: {
+        message: "Topic created successfully!",
+        result: @post
+      }
+    else
+      render json: {
+        errors: @post.errors
+      }
+    end
+  end
+  
+  private
+  
+  def topic_params
+    params.permit(:title, :content, :audience_id, category_ids: [])
+  end
+
 end
