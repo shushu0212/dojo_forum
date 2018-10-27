@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
   before_action :set_topic, except: [:index, :new, :create, :feeds]
   before_action :authenticate_user!, except: :index
-  before_action :authenticate_current_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_current_user, only: [:edit, :update]
 
   def index
     if params[:order_by] == 'lr'
@@ -79,10 +79,12 @@ class TopicsController < ApplicationController
   end
 
   def destroy
-    if @topic.destroy
-      flash[:alert] = "topic was successfully deleted"
-    else
-      flash[:alert] = @topic.errors.full_messages.to_sentence
+    if current_user.admin? || @topic.user.email == current_user.email
+      if @topic.destroy
+        flash[:alert] = "topic was successfully deleted"
+      else
+        flash[:alert] = @topic.errors.full_messages.to_sentence
+      end
     end
     redirect_to root_path
   end

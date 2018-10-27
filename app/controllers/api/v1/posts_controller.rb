@@ -57,7 +57,7 @@ class Api::V1::PostsController < ApiController
   end
 
   def destroy
-    if @post.user == current_user
+    if current_user.admin? || @post.user == current_user
       if @post.destroy
         render json: {
           message: "Topic destroy successfully!"
