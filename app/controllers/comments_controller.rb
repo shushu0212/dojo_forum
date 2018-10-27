@@ -25,24 +25,32 @@ class CommentsController < ApplicationController
   end
 
   def update
-    if @comment.update(comment_params)
-      @topic.update(last_commnet_created_at: @comment.created_at)
-      flash[:notice] = "comment was successfully updated"
-      redirect_to topic_path(@topic)
+    if @comment.user.email == current_user.email
+      if @comment.update(comment_params)
+        @topic.update(last_commnet_created_at: @comment.created_at)
+        flash[:notice] = "comment was successfully updated"
+        redirect_to topic_path(@topic)
+      else
+        flash[:alert] = @comment.errors.full_messages.to_sentence
+        render :edit
+      end
     else
-      flash[:alert] = @comment.errors.full_messages.to_sentence
-      render :edit
+      redirect_to topic_path(@topic)
     end
   end
 
   def update_comment
-    if @comment.update(comment_params)
-      @topic.update(last_commnet_created_at: @comment.created_at)
-      flash[:notice] = "comment was successfully updated"
-      redirect_to topic_path(@topic)
+    if @comment.user.email == current_user.email
+      if @comment.update(comment_params)
+        @topic.update(last_commnet_created_at: @comment.created_at)
+        flash[:notice] = "comment was successfully updated"
+        redirect_to topic_path(@topic)
+      else
+        flash[:alert] = @comment.errors.full_messages.to_sentence
+        render :edit
+      end
     else
-      flash[:alert] = @comment.errors.full_messages.to_sentence
-      render :edit
+      redirect_to topic_path(@topic)
     end
   end
 
