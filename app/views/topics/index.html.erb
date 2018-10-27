@@ -12,9 +12,14 @@
   <div class="row">
     <div class="col-md-12">
       <%= render partial: "shared/topic_list" %>
-      <div>
-        <%= paginate @topics, theme: 'twitter-bootstrap-4' %>
-      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 offset-md-3">
+      <%= paginate @topics, theme: 'twitter-bootstrap-4' %>
     </div>
   </div>
 </div>
