@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:update]
 
   def index
-    @users = User.all
+    @users = User.all.order(:id)
   end
 
   def update

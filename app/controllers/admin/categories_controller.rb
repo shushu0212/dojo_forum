@@ -31,7 +31,7 @@ class Admin::CategoriesController < ApplicationController
       redirect_to admin_categories_path
       flash[:notice] = "category was successfully updated"
     else
-      @categories = Category.all
+      @categories = Category.all.order(:id)
       render :index
     end
   end
