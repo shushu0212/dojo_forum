@@ -11,7 +11,7 @@ class TopicsController < ApplicationController
     elsif params[:order_by] == 'rc'
       @topics = Topic.page(params[:page]).order(comments_count: :desc).per(20)
     else
-      @topics = Topic.page(params[:page]).per(20)
+      @topics = Topic.page(params[:page]).per(20).order(:id)
     end
     @categories = Category.all 
   end
