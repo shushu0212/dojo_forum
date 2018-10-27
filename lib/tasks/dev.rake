@@ -33,15 +33,15 @@ namespace :dev do
   end
 
   task fake_comment: :environment do
-    Topic.all.each do |topic|
-      21.times do |i|
-        topic.comments.create!(
-          content: FFaker::Lorem.sentence,
-          user: User.all.sample
-        )
+    Comment.destroy_all
+    1200.times do |i|
+      Comment.create!(
+        content: FFaker::Lorem.sentence,
+        topic: Topic.all.sample,
+        user: User.all.sample
+      )
       comment_last = Comment.last
-      topic.update(last_commnet_created_at: comment_last.created_at)
-      end
+      comment_last.topic.update(last_commnet_created_at: comment_last.created_at)
     end
     puts "now you have #{Comment.count} comment data"
   end
