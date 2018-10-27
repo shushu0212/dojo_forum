@@ -17,10 +17,15 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @topic.viewed_count += 1
-    @topic.save!
-    @topic_comments = @topic.comments.page(params[:page]).per(20)
-    @comment = Comment.new
+    if can_show_topic?(@topic)
+      @topic.viewed_count += 1
+      @topic.save!
+      @topic_comments = @topic.comments.page(params[:page]).per(20)
+      @comment = Comment.new
+    else
+      flash[:alert] = "您無觀看此文章的權限"
+      redirect_to root_path
+    end
   end
 
   def new
@@ -123,4 +128,13 @@ class TopicsController < ApplicationController
     end
   end
 
+  def can_show_topic?(topic)
+    if topic.audience_id == 1 || topic.user_id == current_user.id
+      return true
+    elsif topic.audience_id == 2
+      return User.find_by_id(topic.user_id).all_friends.include?(current_user) ? true : false
+    else
+      return false
+    end
+  end
 end
