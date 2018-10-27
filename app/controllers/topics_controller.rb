@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   before_action :set_topic, except: [:index, :new, :create, :feeds]
   before_action :authenticate_user!, except: :index
+  before_action :authenticate_current_user, only: [:edit, :update, :destroy]
 
   def index
     if params[:order_by] == 'lr'
@@ -112,4 +113,12 @@ class TopicsController < ApplicationController
   def topic_params
     params.require(:topic).permit(:title, :content, :image, :viewed_count, :audience_id, category_ids: [])
   end
+
+  def authenticate_current_user
+    unless @topic.user == current_user
+      flash[:alert] = "非本人文章，沒有權限!"
+      redirect_to root_path
+    end
+  end
+
 end

@@ -1,16 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user
   before_action :authenticate_user!
+  before_action :authenticate_current_user, only: [:edit, :update, :drafts, :friends]
 
   def show
     @posts = @user.topics.where(publish:true)
   end
 
   def edit
-    unless @user == current_user
-      flash[:alert] = "非本人，無法編輯!"
-      redirect_to user_path(@user)
-    end
   end
 
   def update
@@ -49,6 +46,13 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :intro, :avatar)
+  end
+
+  def authenticate_current_user
+    unless @user == current_user
+      flash[:alert] = "非本人，沒有權限!"
+      redirect_to root_path
+    end
   end
 
 end
