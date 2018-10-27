@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, except: [:index, :new, :create]
+  before_action :set_topic, except: [:index, :new, :create, :feeds]
   before_action :authenticate_user!, except: :index
 
   def index
@@ -93,6 +93,14 @@ class TopicsController < ApplicationController
   def uncollect
     collects = Collect.where(topic: @topic, user: current_user)
     collects.destroy_all
+  end
+
+  def feeds
+    @all_users_count = User.all.count
+    @all_posts_count = Topic.all.count
+    @all_comments_count = Comment.all.count
+    @users = User.order(comments_count: :desc).take(10)
+    @topics = Topic.order(comments_count: :desc).take(10)
   end
 
   private

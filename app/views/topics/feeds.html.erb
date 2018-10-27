@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Post</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @all_users_count %></td>
+            <td><%= @all_posts_count %></td>
+            <td><%= @all_comments_count %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Chatterbox</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% n = 1 %>
+          <% @users.each do |user| %>
+              <tr> 
+                <th scope="row"><%= n %></th>
+                <td><%= link_to user.name, user_path(user) %></td>
+                <td><%= user.comments_count %></td>
+              </tr>
+            <% n += 1 %>
+          <% end %>
+
+        </tbody>
+      </table>
+            <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Most Popular Post</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% n = 1 %>
+          <% @topics.each do |topic| %>
+              <tr> 
+                <th scope="row"><%= n %></th>
+                <td><%= link_to topic.title, topic_path(topic) %></td>
+                <td><%= topic.last_commnet_created_at.strftime("%Y-%m-%d") %></td>
+              </tr>
+            <% n += 1 %>
+          <% end %>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
