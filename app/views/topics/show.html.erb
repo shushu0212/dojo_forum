@@ -1,14 +1,22 @@
 <br>
 <div class="container">
-  <%= render partial: "shared/collect", locals: {topic: @topic} %>
+  <div class="row no-gutters">
+    <div class="col-12 col-sm-6 col-md-8">
+      <h3><%= @topic.title %></h3>    
+    </div>
+    <div class="col-6 col-md-4">
+      <%= render partial: "shared/collect", locals: {topic: @topic} %>
+    </div>
+  </div>
+  <br>
   <div class="row">
-    <div class="col-md-4">
-      <h1><%= link_to @topic.user.name, user_path(@topic.user) %></h1>
+    <div class="col-md-3">
+      <%= image_tag @topic.user.avatar, height: 80, width: 80, class:"img-responsive img-rounded" %>
+      <h5><%= link_to @topic.user.name, user_path(@topic.user) %></h5>
       <%= render partial: "shared/friend", locals:{user:@topic.user} %>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
       <%= image_tag @topic.image, height: 150, width: 210, class:"img-responsive img-rounded" %>
-      <h1><%= @topic.title %></h1>
       <p>
         <% @topic.categories.each do |category| %>
           <%= category.name %>
@@ -34,18 +42,25 @@
 <div class="container">
   <% @topic_comments.each do |comment| %>
   <div id=comment-<%= comment.id.to_s %>>
-    <h4><%= link_to comment.user.name, user_path(comment.user) %></h4>
-    <%= render partial: "shared/friend", locals:{user:comment.user} %>
-    <p><%= simple_format comment.content %></p>
-    <p class="text-muted">
-      <em><%= time_ago_in_words(comment.created_at) %> ago</em>
-      <% if comment.user.email == current_user.email %>
-        <div id=links-<%= comment.id %>>
-          <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id), remote: true %>
-          <%= link_to "Delete", topic_comment_path(@topic, comment), method: :delete, data: { confirm: "Are you sure?"}  %>
-        </div>
-      <% end %>
-    </p>
+    <div class="row">
+      <div class="col-md-3">
+        <%= image_tag comment.user.avatar, height: 80, width: 80, class:"img-responsive img-rounded" %>
+        <h5><%= link_to comment.user.name, user_path(comment.user) %></h5>
+        <%= render partial: "shared/friend", locals:{user:comment.user} %>
+      </div>
+      <div class="col-md-9">
+        <p><%= simple_format comment.content %></p>
+        <p class="text-muted">
+          <em><%= time_ago_in_words(comment.created_at) %> ago</em>
+          <% if comment.user.email == current_user.email %>
+            <div id=links-<%= comment.id %>>
+              <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id), remote: true %>
+              <%= link_to "Delete", topic_comment_path(@topic, comment), method: :delete, data: { confirm: "Are you sure?"}  %>
+            </div>
+          <% end %>
+        </p>
+      </div>
+    </div>
   </div>
   <hr>
   <% end %>
